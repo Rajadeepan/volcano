@@ -163,11 +163,11 @@ func TestValidateExecution(t *testing.T) {
 					},
 					Policies: []v1alpha1.LifecyclePolicy{
 						{
-							Event:  v1alpha1.PodFailedEvent,
+							Event:  []v1alpha1.Event{v1alpha1.PodFailedEvent},
 							Action: v1alpha1.AbortJobAction,
 						},
 						{
-							Event:  v1alpha1.PodFailedEvent,
+							Event:  []v1alpha1.Event{v1alpha1.PodFailedEvent},
 							Action: v1alpha1.RestartJobAction,
 						},
 					},
@@ -486,7 +486,7 @@ func TestValidateExecution(t *testing.T) {
 					},
 					Policies: []v1alpha1.LifecyclePolicy{
 						{
-							Event:    v1alpha1.PodFailedEvent,
+							Event:    []v1alpha1.Event{v1alpha1.PodFailedEvent},
 							Action:   v1alpha1.AbortJobAction,
 							ExitCode: &policyExitCode,
 						},
@@ -570,7 +570,7 @@ func TestValidateExecution(t *testing.T) {
 					},
 					Policies: []v1alpha1.LifecyclePolicy{
 						{
-							Event:  v1alpha1.Event("someFakeEvent"),
+							Event:  []v1alpha1.Event{v1alpha1.Event("someFakeEvent")},
 							Action: v1alpha1.AbortJobAction,
 						},
 					},
@@ -612,7 +612,7 @@ func TestValidateExecution(t *testing.T) {
 					},
 					Policies: []v1alpha1.LifecyclePolicy{
 						{
-							Event:  v1alpha1.PodEvictedEvent,
+							Event:  []v1alpha1.Event{v1alpha1.PodEvictedEvent},
 							Action: v1alpha1.Action("someFakeAction"),
 						},
 					},
@@ -746,11 +746,11 @@ func TestValidateExecution(t *testing.T) {
 					},
 					Policies: []v1alpha1.LifecyclePolicy{
 						{
-							Event:  v1alpha1.AnyEvent,
+							Event:  []v1alpha1.Event{v1alpha1.AnyEvent},
 							Action: v1alpha1.AbortJobAction,
 						},
 						{
-							Event:  v1alpha1.PodFailedEvent,
+							Event:  []v1alpha1.Event{v1alpha1.PodFailedEvent},
 							Action: v1alpha1.RestartJobAction,
 						},
 					},
@@ -792,7 +792,7 @@ func TestValidateExecution(t *testing.T) {
 					},
 					Policies: []v1alpha1.LifecyclePolicy{
 						{
-							Event:  v1alpha1.AnyEvent,
+							Event:  []v1alpha1.Event{v1alpha1.AnyEvent},
 							Action: v1alpha1.AbortJobAction,
 						},
 					},
@@ -839,7 +839,7 @@ func TestValidateExecution(t *testing.T) {
 					},
 					Policies: []v1alpha1.LifecyclePolicy{
 						{
-							Event:  v1alpha1.AnyEvent,
+							Event:  []v1alpha1.Event{v1alpha1.AnyEvent},
 							Action: v1alpha1.AbortJobAction,
 						},
 					},
@@ -887,11 +887,11 @@ func TestValidateExecution(t *testing.T) {
 							},
 							Policies: []v1alpha1.LifecyclePolicy{
 								{
-									Event:  v1alpha1.AnyEvent,
+									Event:  []v1alpha1.Event{v1alpha1.AnyEvent},
 									Action: v1alpha1.AbortJobAction,
 								},
 								{
-									Event:  v1alpha1.PodFailedEvent,
+									Event:  []v1alpha1.Event{v1alpha1.PodFailedEvent},
 									Action: v1alpha1.RestartJobAction,
 								},
 							},

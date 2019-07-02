@@ -20,6 +20,7 @@ import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
+	v1alpha1 "volcano.sh/volcano/pkg/apis/batch/v1alpha1"
 	vkv1 "volcano.sh/volcano/pkg/apis/batch/v1alpha1"
 )
 
@@ -35,7 +36,7 @@ var _ = Describe("MPI E2E Test", func() {
 			policies: []vkv1.LifecyclePolicy{
 				{
 					Action: vkv1.CompleteJobAction,
-					Event:  vkv1.TaskCompletedEvent,
+					Event:  []v1alpha1.Event{vkv1.TaskCompletedEvent},
 				},
 			},
 			plugins: map[string][]string{

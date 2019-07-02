@@ -406,7 +406,7 @@ func TestApplyPolicies(t *testing.T) {
 							Policies: []v1alpha1.LifecyclePolicy{
 								{
 									Action:   v1alpha1.SyncJobAction,
-									Event:    v1alpha1.CommandIssuedEvent,
+									Event:    []v1alpha1.Event{v1alpha1.CommandIssuedEvent},
 									ExitCode: &errorCode0,
 								},
 							},
@@ -453,7 +453,7 @@ func TestApplyPolicies(t *testing.T) {
 							Policies: []v1alpha1.LifecyclePolicy{
 								{
 									Action: v1alpha1.SyncJobAction,
-									Event:  v1alpha1.CommandIssuedEvent,
+									Event:  []v1alpha1.Event{v1alpha1.CommandIssuedEvent},
 								},
 							},
 						},
@@ -543,7 +543,7 @@ func TestApplyPolicies(t *testing.T) {
 					Policies: []v1alpha1.LifecyclePolicy{
 						{
 							Action: v1alpha1.SyncJobAction,
-							Event:  v1alpha1.CommandIssuedEvent,
+							Event:  []v1alpha1.Event{v1alpha1.CommandIssuedEvent},
 						},
 					},
 				},
@@ -589,7 +589,7 @@ func TestApplyPolicies(t *testing.T) {
 					Policies: []v1alpha1.LifecyclePolicy{
 						{
 							Action:   v1alpha1.SyncJobAction,
-							Event:    v1alpha1.CommandIssuedEvent,
+							Event:    []v1alpha1.Event{v1alpha1.CommandIssuedEvent},
 							ExitCode: &errorCode0,
 						},
 					},

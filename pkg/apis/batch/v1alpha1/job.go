@@ -178,7 +178,7 @@ type LifecyclePolicy struct {
 	// The Event recorded by scheduler; the controller takes actions
 	// according to this Event.
 	// +optional
-	Event Event `json:"event,omitempty" protobuf:"bytes,2,opt,name=event"`
+	Event []Event `json:"event,omitempty" protobuf:"bytes,2,opt,name=event"`
 
 	// The exit code of the pod container, controller will take action
 	// according to this code.

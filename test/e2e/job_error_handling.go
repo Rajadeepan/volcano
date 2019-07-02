@@ -23,6 +23,7 @@ import (
 	"k8s.io/api/core/v1"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	v1alpha1 "volcano.sh/volcano/pkg/apis/batch/v1alpha1"
 	vkv1 "volcano.sh/volcano/pkg/apis/batch/v1alpha1"
 	jobutil "volcano.sh/volcano/pkg/controllers/job"
 )
@@ -39,7 +40,7 @@ var _ = Describe("Job Error Handling", func() {
 			policies: []vkv1.LifecyclePolicy{
 				{
 					Action: vkv1.RestartJobAction,
-					Event:  vkv1.PodFailedEvent,
+					Event:  []v1alpha1.Event{vkv1.PodFailedEvent},
 				},
 			},
 			tasks: []taskSpec{
@@ -76,7 +77,7 @@ var _ = Describe("Job Error Handling", func() {
 			policies: []vkv1.LifecyclePolicy{
 				{
 					Action: vkv1.TerminateJobAction,
-					Event:  vkv1.PodFailedEvent,
+					Event:  []v1alpha1.Event{vkv1.PodFailedEvent},
 				},
 			},
 			tasks: []taskSpec{
@@ -113,7 +114,7 @@ var _ = Describe("Job Error Handling", func() {
 			policies: []vkv1.LifecyclePolicy{
 				{
 					Action: vkv1.AbortJobAction,
-					Event:  vkv1.PodFailedEvent,
+					Event:  []v1alpha1.Event{vkv1.PodFailedEvent},
 				},
 			},
 			tasks: []taskSpec{
@@ -150,7 +151,7 @@ var _ = Describe("Job Error Handling", func() {
 			policies: []vkv1.LifecyclePolicy{
 				{
 					Action: vkv1.RestartJobAction,
-					Event:  vkv1.PodEvictedEvent,
+					Event:  []v1alpha1.Event{vkv1.PodEvictedEvent},
 				},
 			},
 			tasks: []taskSpec{
@@ -194,7 +195,7 @@ var _ = Describe("Job Error Handling", func() {
 			policies: []vkv1.LifecyclePolicy{
 				{
 					Action: vkv1.TerminateJobAction,
-					Event:  vkv1.PodEvictedEvent,
+					Event:  []v1alpha1.Event{vkv1.PodEvictedEvent},
 				},
 			},
 			tasks: []taskSpec{
@@ -238,7 +239,7 @@ var _ = Describe("Job Error Handling", func() {
 			policies: []vkv1.LifecyclePolicy{
 				{
 					Action: vkv1.AbortJobAction,
-					Event:  vkv1.PodEvictedEvent,
+					Event:  []v1alpha1.Event{vkv1.PodEvictedEvent},
 				},
 			},
 			tasks: []taskSpec{
@@ -282,7 +283,7 @@ var _ = Describe("Job Error Handling", func() {
 			policies: []vkv1.LifecyclePolicy{
 				{
 					Action: vkv1.RestartJobAction,
-					Event:  vkv1.AnyEvent,
+					Event:  []v1alpha1.Event{vkv1.AnyEvent},
 				},
 			},
 			tasks: []taskSpec{
@@ -326,7 +327,7 @@ var _ = Describe("Job Error Handling", func() {
 			namespace: "test",
 			policies: []vkv1.LifecyclePolicy{
 				{
-					Event:  vkv1.JobUnknownEvent,
+					Event:  []v1alpha1.Event{vkv1.JobUnknownEvent},
 					Action: vkv1.RestartJobAction,
 				},
 			},
@@ -385,7 +386,7 @@ var _ = Describe("Job Error Handling", func() {
 			namespace: "test",
 			policies: []vkv1.LifecyclePolicy{
 				{
-					Event:  vkv1.JobUnknownEvent,
+					Event:  []v1alpha1.Event{vkv1.JobUnknownEvent},
 					Action: vkv1.AbortJobAction,
 				},
 			},
@@ -440,7 +441,7 @@ var _ = Describe("Job Error Handling", func() {
 			policies: []vkv1.LifecyclePolicy{
 				{
 					Action: vkv1.CompleteJobAction,
-					Event:  vkv1.TaskCompletedEvent,
+					Event:  []v1alpha1.Event{vkv1.TaskCompletedEvent},
 				},
 			},
 			tasks: []taskSpec{
