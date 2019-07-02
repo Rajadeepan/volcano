@@ -25,6 +25,7 @@ import (
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
+	"volcano.sh/volcano/pkg/apis/batch/v1alpha1"
 	vkv1 "volcano.sh/volcano/pkg/apis/batch/v1alpha1"
 	"volcano.sh/volcano/pkg/apis/helpers"
 	"volcano.sh/volcano/pkg/controllers/apis"
@@ -143,8 +144,10 @@ func applyPolicies(job *vkv1.Job, req *apis.Request) vkv1.Action {
 		for _, task := range job.Spec.Tasks {
 			if task.Name == req.TaskName {
 				for _, policy := range task.Policies {
-					if len(policy.Event) > 0 && len(req.Event) > 0 {
-						if policy.Event == req.Event || policy.Event == vkv1.AnyEvent {
+					policyEvents := getEventlist(policy)
+
+					if len(policyEvents) > 0 && len(req.Event) > 0 {
+						if checkEventExist(policyEvents, req.Event) || checkEventExist(policyEvents, vkv1.AnyEvent) {
 							return policy.Action
 						}
 					}
@@ -161,8 +164,10 @@ func applyPolicies(job *vkv1.Job, req *apis.Request) vkv1.Action {
 
 	// Parse Job level policies
 	for _, policy := range job.Spec.Policies {
-		if len(policy.Event) > 0 && len(req.Event) > 0 {
-			if policy.Event == req.Event || policy.Event == vkv1.AnyEvent {
+		policyEvents := getEventlist(policy)
+
+		if len(policyEvents) > 0 && len(req.Event) > 0 {
+			if checkEventExist(policyEvents, req.Event) || checkEventExist(policyEvents, vkv1.AnyEvent) {
 				return policy.Action
 			}
 		}
@@ -174,6 +179,24 @@ func applyPolicies(job *vkv1.Job, req *apis.Request) vkv1.Action {
 	}
 
 	return vkv1.SyncJobAction
+}
+
+func getEventlist(policy v1alpha1.LifecyclePolicy) []v1alpha1.Event {
+	policyEventsList := policy.EventList
+	if len(policy.Event) > 0 {
+		policyEventsList = append(policyEventsList, policy.Event)
+	}
+	return policyEventsList
+}
+
+func checkEventExist(policyEvents []v1alpha1.Event, reqEvent v1alpha1.Event) bool {
+	for _, event := range policyEvents {
+		if event == reqEvent {
+			return true
+		}
+	}
+	return false
+
 }
 
 func addResourceList(list, new v1.ResourceList) {
