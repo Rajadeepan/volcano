@@ -115,12 +115,12 @@ func validatePolicies(policies []v1alpha1.LifecyclePolicy, fldPath *field.Path) 
 	exitCodes := map[int32]struct{}{}
 
 	for _, policy := range policies {
-		if (len(policy.Event) != 0 || len(policy.EventList) != 0) && policy.ExitCode != nil {
+		if (policy.Event != "" || len(policy.EventList) != 0) && policy.ExitCode != nil {
 			err = multierror.Append(err, fmt.Errorf("must not specify event and exitCode simultaneously"))
 			break
 		}
 
-		if (len(policy.Event) == 0 || len(policy.EventList) == 0) && policy.ExitCode == nil {
+		if policy.Event == "" && len(policy.EventList) == 0 && policy.ExitCode == nil {
 			err = multierror.Append(err, fmt.Errorf("either event and exitCode should be specified"))
 			break
 		}
